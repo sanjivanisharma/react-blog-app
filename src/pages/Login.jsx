@@ -1,5 +1,9 @@
+import { LoginForm } from "../components"
+
 export default function Login() {
     return (
-        <h1>Login here</h1>
+        <div className='py-8'>
+            <LoginForm />
+        </div>
     )
 }

@@ -1,5 +1,9 @@
+import { SignupForm } from "../components"
+
 export default function Signup() {
     return (
-        <h1>Signup here</h1>
+        <div className='py-8'>
+            <SignupForm />
+        </div>
     )
 }

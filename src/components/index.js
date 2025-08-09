@@ -4,5 +4,7 @@ import Header from "./Header/Header";
 import LogoutBtn from "./Header/LogoutBtn";
 import Logo from "./Logo";
 import PostCard from "./PostCard";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
-export { Container, Footer, Header, LogoutBtn, Logo, PostCard }
+export { Container, Footer, Header, LogoutBtn, Logo, PostCard, LoginForm, SignupForm }
