@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {Container, PostCard} from '../components'
 
 export default function Home() {
-    const [posts, setPosts] = useState([{}])
+    const [posts, setPosts] = useState([])
   
     if (posts.length === 0) {
         return (

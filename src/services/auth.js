@@ -36,21 +36,16 @@ class AuthService {
 
     async getCurrentUser() {
         try {
-            const account = this.account.get()
-            // if(account) 
-            console.log(account)
+            return await this.account.get()
         } catch (error) {
             console.error(error);
             throw error;
         }
-
-        return null;
     }
 
     async logout() {
         try {
-            const session = this.account.deleteSessions();
-            console.log(session)
+            return this.account.deleteSessions();
         } catch (error) {
             console.error(error);
             throw error;
