@@ -35,6 +35,17 @@ export default function Header() {
         },
     ]
 
+    const navItemsElements = navItems.map((item) =>
+        item.active ? (
+            <li key={item.name}>
+                <button
+                    onClick={() => navigate(item.slug)}
+                    className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                >{item.name}</button>
+            </li>
+        ) : null
+    )
+
 
     return (
         <header className='py-3 shadow bg-gray-500'>
@@ -47,16 +58,7 @@ export default function Header() {
                         </Link>
                     </div>
                     <ul className='flex ml-auto'>
-                        {navItems.map((item) =>
-                            item.active ? (
-                                <li key={item.name}>
-                                    <button
-                                        onClick={() => navigate(item.slug)}
-                                        className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                                    >{item.name}</button>
-                                </li>
-                            ) : null
-                        )}
+                        {navItemsElements}
                         {authStatus && (
                             <li>
                                 <LogoutBtn />

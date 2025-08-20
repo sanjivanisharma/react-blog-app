@@ -10,7 +10,7 @@ export default function LogoutBtn() {
     authService.logout().then(() => {
       dispatch(logout())
     })
-    .catch(error => console.log(error))
+      .catch(error => console.log(error))
   }
 
   return (
