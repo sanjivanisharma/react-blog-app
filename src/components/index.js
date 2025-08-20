@@ -8,5 +8,6 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Button from "./Button";
 import Input from "./Input";
+import Select from "./Select";
 
-export { Container, Footer, Header, LogoutBtn, Logo, PostCard, LoginForm, SignupForm, Button, Input }
+export { Container, Footer, Header, LogoutBtn, Logo, PostCard, LoginForm, SignupForm, Button, Input, Select }
