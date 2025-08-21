@@ -14,9 +14,7 @@ class AuthService {
 
     async createAccount({ email, password, name }) {
         try {
-            const userAccount = await this.account.create(ID.unique(), email, password, name);
-            // if (userAccount) {
-            console.log(userAccount)
+            return await this.account.create(ID.unique(), email, password, name)
         } catch (error) {
             console.error(error);
             throw error;
@@ -25,9 +23,7 @@ class AuthService {
 
     async login({ email, password }) {
         try {
-            const userLogin = await this.account.createEmailPasswordSession(email, password)
-            // if (userLogin) {
-            console.log(userLogin)
+            return await this.account.createEmailPasswordSession(email, password)
         } catch (error) {
             console.error(error);
             throw error;
