@@ -1,5 +1,11 @@
+import { Container, PostForm } from "../components"
+
 export default function AddPost() {
     return (
-        <h1>Add post here</h1>
+        <div className='py-8'>
+            <Container>
+                <PostForm />
+            </Container>
+        </div>
     )
 }
