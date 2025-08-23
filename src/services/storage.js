@@ -14,12 +14,11 @@ class StorageService {
 
     async uploadFile(file) {
         try {
-            const bucket = await this.storage.createFile(
+            return await this.storage.createFile(
                 config.appwriteBucketId,
                 ID.unique(),
                 file
             )
-            console.log(bucket)
         } catch (error) {
             console.error(error);
             throw error;
@@ -28,11 +27,10 @@ class StorageService {
 
     async deleteFile(fileId) {
         try {
-            const bucket = await this.storage.deleteFile(
+            return await this.storage.deleteFile(
                 config.appwriteBucketId,
                 fileId
             )
-            console.log(bucket)
         } catch (error) {
             console.error(error);
             throw error;
@@ -40,11 +38,10 @@ class StorageService {
     }
 
     getFilePreview(fileId) {
-        const bucket = this.storage.getFilePreview(
+        return this.storage.getFilePreview(
             config.appwriteBucketId,
             fileId
         )
-        console.log(bucket)
     }
 }
 

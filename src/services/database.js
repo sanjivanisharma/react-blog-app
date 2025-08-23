@@ -14,7 +14,7 @@ class DatabaseService {
 
     async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
-            const data = await this.databases.createDocument(
+            return await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
@@ -22,7 +22,6 @@ class DatabaseService {
                     title, content, featuredImage, status, userId
                 }
             )
-            console.log(data)
         } catch (error) {
             console.error(error);
             throw error;
@@ -31,7 +30,7 @@ class DatabaseService {
 
     async updatePost(slug, { title, content, featuredImage, status }) {
         try {
-            const data = await this.databases.updateDocument(
+            return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
@@ -39,7 +38,6 @@ class DatabaseService {
                     title, content, featuredImage, status
                 }
             )
-            console.log(data)
         } catch (error) {
             console.error(error);
             throw error;
@@ -48,12 +46,11 @@ class DatabaseService {
 
     async deletePost(slug) {
         try {
-            const data = await this.databases.deleteDocument(
+            return await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             )
-            console.log(data)
         } catch (error) {
             console.error(error);
             throw error;
@@ -62,12 +59,11 @@ class DatabaseService {
 
     async getPost(slug) {
         try {
-            const data = await this.databases.getDocument(
+            return await this.databases.getDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             )
-            console.log(data)
         } catch (error) {
             console.error(error);
             throw error;
@@ -76,12 +72,11 @@ class DatabaseService {
 
     async getAllActivePosts(queries = [Query.equal("status", ["active"])]) {
         try {
-            const data = await this.databases.listDocuments(
+            return await this.databases.listDocuments(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 queries
             )
-            console.log(data)
         } catch (error) {
             console.error(error);
             throw error;

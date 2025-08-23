@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Button, Input, Select, RTE } from "../index"
 import databaseService from "../../services/database"
@@ -22,12 +22,50 @@ export default function PostForm({ post }) {
     const userData = useSelector(state => state.auth.userData)
 
     const submit = async (data) => {
-
+        if (post) {
+            const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
+            if (file) {
+                storageService.deleteFile(post.featuredImage)
+            }
+            const dbPost = await databaseService.updatePost(post.$id, {
+                ...data,
+                featuredImage: file ? file.$id : null
+            })
+            if (dbPost) {
+                navigate(`/post/${dbPost.$id}`)
+            }
+        } else {
+            const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
+            if (file) {
+                data.featuredImage = file.$id
+                const dbPost = await databaseService.createPost({ ...data, userId: userData.$id })
+                if (dbPost) {
+                    navigate(`/post/${dbPost.$id}`)
+                }
+            }
+        }
     }
 
-    const slugTransform = () => {
+    const slugTransform = useCallback((value) => {
+        if (value && typeof value === "string")
+            return value
+                .trim()
+                .toLowerCase()
+                .replace(/\s/g, '-')
 
-    }
+        return ""
+    }, [])
+
+    useEffect(() => {
+        const subscription = watch((value, name) => {
+            if(name === "title") {
+                setValue("slug", slugTransform(value.title), {shouldValidate: true})
+            }
+        })
+        return () => {
+            subscription.unsubscribe()
+        }
+    }, [watch, slugTransform, setValue])
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -43,18 +81,19 @@ export default function PostForm({ post }) {
                             message: "Title must not exceed 255 characters."
                         }
                     })}
+                    onInput={(e) => {
+                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
+                    }}
                 />
                 <p className="text-red-600">{errors.title?.message}</p>
                 <Input
                     label="Slug"
                     placeholder="Slug"
                     className="mb-4"
-                    {...register("title", {
+                    readOnly
+                    {...register("slug", {
                         required: "This field is Required"
                     })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
-                    }}
                 />
                 <RTE label="Content" name="content" control={control} defaultValue={getValues("content")} />
             </div>
@@ -64,7 +103,7 @@ export default function PostForm({ post }) {
                     type="file"
                     className="mb-4"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
+                    {...register("image", { required: false })}
                 />
                 {post && (
                     <div className="w-full mb-4">
