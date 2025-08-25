@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Container, PostCard } from '../components'
 import databaseService from '../services/database'
+import { setPostsStore } from "../store/postSlice"
 
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function Home() {
-    const [posts, setPosts] = useState([])
+    const posts = useSelector(state => state.post.posts)
+    const dispatch = useDispatch()
 
     const postCardElements = posts.map((post) => (
         <div key={post.$id} className='p-2 w-1/4'>
@@ -17,7 +20,7 @@ export default function Home() {
         databaseService.getAllActivePosts([])
             .then((allPosts) => {
                 if (allPosts) {
-                    setPosts(allPosts.documents)
+                    dispatch(setPostsStore({documents: allPosts.documents}))
                 }
             })
             .catch(error => console.log(error))

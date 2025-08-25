@@ -1,26 +1,14 @@
-import { useState, useEffect } from "react"
-
 import { Container, PostCard } from "../components"
-import databaseService from "../services/database"
+import { useSelector } from 'react-redux'
 
 export default function AllPosts() {
-    const [posts, setPosts] = useState([])
+    const posts = useSelector(state => state.post.posts)
 
     const postCardElements = posts.map((post) => (
         <div key={post.$id} className='p-2 w-1/4'>
             <PostCard {...post} />
         </div>
     ))
-
-    useEffect(() => {
-        databaseService.getAllActivePosts([])
-            .then((allPosts) => {
-                if (allPosts) {
-                    setPosts(allPosts.documents)
-                }
-            })
-            .catch(error => console.log(error))
-    }, [])
 
     return (
         <div className='w-full py-8'>
