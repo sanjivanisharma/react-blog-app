@@ -1,11 +1,12 @@
 import { useCallback, useEffect } from "react";
 
+import { createPostStore, updatePostStore } from "../../store/postSlice";
 import { Button, Input, Select, RTE } from "../index"
 import databaseService from "../../services/database"
 import storageService from "../../services/storage"
 
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
 export default function PostForm({ post }) {
@@ -18,6 +19,7 @@ export default function PostForm({ post }) {
         }
     })
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
 
@@ -29,9 +31,10 @@ export default function PostForm({ post }) {
             }
             const dbPost = await databaseService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : null
+                featuredImage: file ? file.$id : post.featuredImage
             })
             if (dbPost) {
+                dispatch(updatePostStore({post: dbPost}))
                 navigate(`/post/${dbPost.$id}`)
             }
         } else {
@@ -40,6 +43,7 @@ export default function PostForm({ post }) {
                 data.featuredImage = file.$id
                 const dbPost = await databaseService.createPost({ ...data, userId: userData.$id })
                 if (dbPost) {
+                    dispatch(createPostStore({post: dbPost}))
                     navigate(`/post/${dbPost.$id}`)
                 }
             }

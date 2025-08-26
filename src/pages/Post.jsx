@@ -1,39 +1,28 @@
-import { useState, useEffect } from "react"
-
+import { deletePostStore } from "../store/postSlice"
 import databaseService from "../services/database"
 import storageService from "../services/storage"
 import { Button, Container } from "../components"
 
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import parse from "html-react-parser"
 
 export default function Post() {
-    const [post, setPost] = useState(null)
+    const userData = useSelector(state => state.auth.userData)
+    const posts = useSelector(state => state.post.posts)
     const { slug } = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    const userData = useSelector(state => state.auth.userData)
+    const post = posts.length > 0 ? posts.find(singlePost => singlePost.$id === slug) : null
     const isAuthor = post && userData ? post.userId === userData.$id : false
-
-    useEffect(() => {
-        if (slug) {
-            databaseService.getPost(slug)
-                .then((dbPost) => {
-                    if (dbPost)
-                        setPost(dbPost)
-                })
-                .catch(error => console.log(error))
-        } else {
-            navigate("/")
-        }
-    }, [slug, navigate])
 
     const deletePost = () => {
         databaseService.deletePost(slug)
             .then((message) => {
                 if (message) {
                     storageService.deleteFile(post.featuredImage)
+                    dispatch(deletePostStore({postId: slug}))
                     navigate("/")
                 }
             })
