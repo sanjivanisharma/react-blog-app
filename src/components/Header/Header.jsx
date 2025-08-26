@@ -24,8 +24,8 @@ export default function Header() {
             active: !authStatus,
         },
         {
-            name: "All Posts",
-            slug: "/all-posts",
+            name: "User Posts",
+            slug: "/user-posts",
             active: authStatus,
         },
         {

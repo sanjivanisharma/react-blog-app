@@ -1,4 +1,5 @@
 import { logout } from "../../store/authSlice"
+import { setPostsStore } from "../../store/postSlice"
 import authService from "../../services/auth"
 
 import { useDispatch } from "react-redux"
@@ -11,6 +12,7 @@ export default function LogoutBtn() {
   const logoutHandler = () => {
     authService.logout().then(() => {
       dispatch(logout())
+      dispatch(setPostsStore({documents: []}))
       navigate('/')
     })
       .catch(error => console.log(error))

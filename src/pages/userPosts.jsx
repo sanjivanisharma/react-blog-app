@@ -1,30 +1,18 @@
-import { useEffect } from 'react'
-import { Container, PostCard } from '../components'
-import databaseService from '../services/database'
-import { setPostsStore } from "../store/postSlice"
+import { Container, PostCard } from "../components"
 
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 
-export default function Home() {
-    const posts = useSelector(state => state.post.posts)
-    const dispatch = useDispatch()
+export default function userPosts() {
+    const allPosts = useSelector(state => state.post.posts)
+    const userData = useSelector(state => state.auth.userData)
+    const posts = allPosts.filter(post => post.userId === userData.$id)
 
     const postCardElements = posts.map((post) => (
         <div key={post.$id} className='p-2 w-1/4'>
             <PostCard {...post} />
         </div>
     ))
-
-    useEffect(() => {
-        databaseService.getAllActivePosts([])
-            .then((allPosts) => {
-                if (allPosts) {
-                    dispatch(setPostsStore({documents: allPosts.documents}))
-                }
-            })
-            .catch(error => console.log(error))
-    }, [])
 
     if (posts.length === 0) {
         return (
@@ -33,8 +21,8 @@ export default function Home() {
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
                             <h1 className="text-2xl font-bold hover:text-gray-500">
-                                <Link to="login">
-                                    Login to read posts
+                                <Link to="/add-post">
+                                    Write your first post
                                 </Link>
                             </h1>
                         </div>
