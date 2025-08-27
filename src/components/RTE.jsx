@@ -41,8 +41,7 @@ export default function RTE({ label, name, control, defaultValue = "" }) {
                                 "wordcount",
                                 "anchor",
                             ],
-                            toolbar:
-                                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
                             content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
                         }}
                         onEditorChange={onChange}
