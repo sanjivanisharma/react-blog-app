@@ -13,7 +13,8 @@ import EditPost from './pages/EditPost.jsx'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import store from './store/store.js'
+import { store, persistor } from './store/store.js'
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 const router = createBrowserRouter([
@@ -56,7 +57,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )
