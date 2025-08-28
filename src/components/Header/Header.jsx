@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default function Header() {
-    const authStatus = useSelector(state => state.auth.status)
+    const authStatus = useSelector(state => state.auth.isAuthenticated)
     const navigate = useNavigate()
 
     const navItems = [
