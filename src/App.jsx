@@ -40,9 +40,9 @@ export default function App() {
     />) :
     (
       <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
-        <div className='w-full block'>
+        <div className='w-full flex flex-col min-h-screen'>
           <Header />
-          <main>
+          <main className="h-full flex-grow">
             <Outlet />
           </main>
           <Footer />
