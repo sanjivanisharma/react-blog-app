@@ -1,13 +1,17 @@
 import { useEffect } from 'react'
 import { Container, PostCard } from '../components'
-import databaseService from '../services/database'
 import { setPostsStore } from "../store/postSlice"
+import { getPosts } from '../helpers/api'
 
-import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { Link, useLoaderData } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+export function loader() {
+    return getPosts()
+}
 
 export default function Home() {
-    const posts = useSelector(state => state.post.posts)
+    const posts = useLoaderData()
     const dispatch = useDispatch()
 
     const postCardElements = posts.map((post) => (
@@ -17,14 +21,10 @@ export default function Home() {
     ))
 
     useEffect(() => {
-        databaseService.getAllActivePosts([])
-            .then((allPosts) => {
-                if (allPosts) {
-                    dispatch(setPostsStore({documents: allPosts.documents}))
-                }
-            })
-            .catch(error => console.log(error))
-    }, [])
+        if(posts) {
+            dispatch(setPostsStore({documents: posts}))
+        }
+    }, [posts, dispatch])
 
     if (posts.length === 0) {
         return (

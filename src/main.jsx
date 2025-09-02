@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import './index.css'
 import App from './App.jsx'
-import Home from './pages/Home.jsx'
+import Home, {loader as postsLoader} from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Post from './pages/Post.jsx'
@@ -11,6 +11,7 @@ import UserPosts from './pages/userPosts.jsx'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
 import NotFound from './pages/NotFound.jsx'
+import { Error } from './components/index.js'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
+        loader: postsLoader,
+        errorElement: <Error />
       },
       {
         path: "/login",

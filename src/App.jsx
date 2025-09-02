@@ -31,22 +31,21 @@ export default function App() {
       .finally(setLoading(false))
   }, [])
 
-  return loading ? (
-    <ClipLoader
-      loading={loading}
-      cssOverride={loaderStyle}
-      size={100}
-      aria-label="Loading Spinner"
-    />) :
-    (
-      <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
-        <div className='w-full flex flex-col min-h-screen'>
-          <Header />
-          <main className="h-full flex-grow">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
+  return (
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className='w-full flex flex-col min-h-screen'>
+        <Header />
+        <main className="h-full flex-grow">
+          {loading ? (
+            <ClipLoader
+              loading={loading}
+              cssOverride={loaderStyle}
+              size={100}
+              aria-label="Loading Spinner"
+            />) : <Outlet />}
+        </main>
+        <Footer />
       </div>
-    )
+    </div>
+  )
 }
