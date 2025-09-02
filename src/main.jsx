@@ -10,6 +10,7 @@ import Post from './pages/Post.jsx'
 import UserPosts from './pages/userPosts.jsx'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/post/:slug",
         element: <Post />
+      },
+      {
+        path: "*",
+        element: <NotFound />
       },
     ]
   }
