@@ -32,7 +32,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-300'>
       <div className='w-full flex flex-col min-h-screen'>
         <Header />
         <main className="h-full flex-grow">
