@@ -64,7 +64,7 @@ export default function SignupForm() {
                         <Input
                             label="Email"
                             placeholder="Enter your email"
-                            type="email"
+                            type="text"
                             {...register("email", {
                                 required: "This field is required",
                                 pattern: {

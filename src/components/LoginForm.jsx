@@ -55,7 +55,7 @@ export default function LoginForm() {
                         <Input
                             label="Email"
                             placeholder="Enter your email"
-                            type="email"
+                            type="text"
                             {...register("email", {
                                 required: "This field is required",
                                 pattern: {
