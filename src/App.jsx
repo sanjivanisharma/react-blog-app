@@ -7,16 +7,9 @@ import { login, logout } from "./store/authSlice"
 
 import { Outlet } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { ClipLoader } from "react-spinners"
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-
-  const loaderStyle = {
-    display: "block",
-    margin: "0 auto"
-  }
 
   useEffect(() => {
     authService.getCurrentUser()
@@ -28,7 +21,6 @@ export default function App() {
         }
       })
       .catch(error => console.log(error))
-      .finally(setLoading(false))
   }, [])
 
   return (
@@ -36,13 +28,7 @@ export default function App() {
       <div className='w-full flex flex-col min-h-screen'>
         <Header />
         <main className="h-full flex-grow">
-          {loading ? (
-            <ClipLoader
-              loading={loading}
-              cssOverride={loaderStyle}
-              size={100}
-              aria-label="Loading Spinner"
-            />) : <Outlet />}
+          <Outlet />
         </main>
         <Footer />
       </div>

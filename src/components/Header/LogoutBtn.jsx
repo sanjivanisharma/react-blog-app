@@ -13,7 +13,7 @@ export default function LogoutBtn() {
     authService.logout().then(() => {
       dispatch(logout())
       dispatch(setPostsStore({documents: []}))
-      navigate('/')
+      navigate('/login')
     })
       .catch(error => console.log(error))
   }

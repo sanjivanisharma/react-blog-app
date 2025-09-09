@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import './index.css'
 import App from './App.jsx'
-import Home, {loader as postsLoader} from './pages/Home.jsx'
+import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Post from './pages/Post.jsx'
@@ -11,7 +11,7 @@ import UserPosts from './pages/userPosts.jsx'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
 import NotFound from './pages/NotFound.jsx'
-import { Error } from './components/index.js'
+import { Error, AuthLayout } from './components/index.js'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -27,28 +27,47 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: postsLoader,
         errorElement: <Error />
       },
       {
         path: "/login",
-        element: <Login />
+        element: (
+          <AuthLayout authRequired={false}>
+            <Login />
+          </AuthLayout>
+        )
       },
       {
         path: "/signup",
-        element: <Signup />
+        element: (
+          <AuthLayout authRequired={false}>
+            <Signup />
+          </AuthLayout>
+        )
       },
       {
         path: "/user-posts",
-        element: <UserPosts />
+        element: (
+          <AuthLayout authRequired>
+            <UserPosts />
+          </AuthLayout>
+        )
       },
       {
         path: "/add-post",
-        element: <AddPost />
+        element: (
+          <AuthLayout authRequired>
+            <AddPost />
+          </AuthLayout>
+        )
       },
       {
         path: "/edit-post/:slug",
-        element: <EditPost />
+        element: (
+          <AuthLayout authRequired>
+            <EditPost />
+          </AuthLayout>
+        )
       },
       {
         path: "/post/:slug",

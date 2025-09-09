@@ -1,18 +1,22 @@
 import { useEffect } from 'react'
 import { Container, PostCard } from '../components'
 import { setPostsStore } from "../store/postSlice"
-import { getPosts } from '../helpers/api'
+import databaseService from '../services/database'
 
-import { Link, useLoaderData } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-
-export function loader() {
-    return getPosts()
-}
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { ClipLoader } from 'react-spinners'
 
 export default function Home() {
-    const posts = useLoaderData()
+    const posts = useSelector(state => state.post.posts)
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const loaderStyle = {
+        display: "block",
+        margin: "10% auto"
+    }
 
     const postCardElements = posts.map((post) => (
         <div key={post.$id} className='p-2 w-1/4'>
@@ -21,26 +25,27 @@ export default function Home() {
     ))
 
     useEffect(() => {
-        if(posts) {
-            dispatch(setPostsStore({documents: posts}))
+        if (!isAuthenticated) {
+            navigate("/login")
+        } else {
+            databaseService.getAllActivePosts([])
+                .then((allPosts) => {
+                    if (allPosts) {
+                        dispatch(setPostsStore({ documents: allPosts.documents }))
+                    }
+                })
+                .catch(error => console.log(error))
         }
-    }, [posts, dispatch])
+    }, [])
 
     if (posts.length === 0) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                <Link to="login">
-                                    Login to read posts
-                                </Link>
-                            </h1>
-                        </div>
-                    </div>
-                </Container>
-            </div>
+            <ClipLoader
+                loading={true}
+                cssOverride={loaderStyle}
+                size={100}
+                aria-label="Loading Spinner"
+            />
         )
     }
     return (
