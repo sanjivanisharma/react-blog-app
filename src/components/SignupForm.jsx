@@ -7,15 +7,18 @@ import authService from "../services/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
+import { ClipLoader } from "react-spinners"
 
 export default function SignupForm() {
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const signup = (data) => {
         setError("")
+        setLoading(true)
         authService.createAccount(data)
             .then((accountData) => {
                 authService.login(data)
@@ -29,6 +32,7 @@ export default function SignupForm() {
                 setError(error.message)
                 throw error
             })
+            .finally(() => setLoading(false))
     }
 
     return (
@@ -88,8 +92,14 @@ export default function SignupForm() {
                         <p className="text-red-600">{errors.password?.message}</p>
                         <Button
                             type="submit"
-                            className="w-full">
+                            className="w-full flex items-center justify-center gap-2">
                             Create Account
+                            <ClipLoader
+                                color="white"
+                                loading={loading}
+                                size={18}
+                                aria-label="Loading Spinner"
+                            />
                         </Button>
                     </div>
                 </form>

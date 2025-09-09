@@ -7,15 +7,18 @@ import authService from "../services/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
+import { ClipLoader } from "react-spinners"
 
 export default function LoginForm() {
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const login = (data) => {
         setError("")
+        setLoading(true)
         authService.login(data)
             .then((userData) => {
                 if (userData)
@@ -26,6 +29,7 @@ export default function LoginForm() {
                 setError(error.message)
                 throw error
             })
+            .finally(() => setLoading(false))
     }
 
     return (
@@ -79,8 +83,15 @@ export default function LoginForm() {
                         <p className="text-red-600">{errors.password?.message}</p>
                         <Button
                             type="submit"
-                            className="w-full"
-                        >Log in</Button>
+                            className="w-full flex items-center justify-center gap-2"
+                        >Log in
+                            <ClipLoader
+                                color="white"
+                                loading={loading}
+                                size={18}
+                                aria-label="Loading Spinner"
+                            />
+                        </Button>
                     </div>
                 </form>
             </div>
