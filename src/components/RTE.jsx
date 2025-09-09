@@ -11,6 +11,7 @@ export default function RTE({ label, name, control, defaultValue = "" }) {
                 name={name || "content"}
                 control={control}
                 defaultValue={defaultValue}
+                rules={{required: "This field is Required"}}
                 render={({ field: { onChange } }) => (
                     <Editor
                         apiKey={config.tinymceApiKey}
@@ -41,7 +42,7 @@ export default function RTE({ label, name, control, defaultValue = "" }) {
                                 "wordcount",
                                 "anchor",
                             ],
-                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
                             content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
                         }}
                         onEditorChange={onChange}
