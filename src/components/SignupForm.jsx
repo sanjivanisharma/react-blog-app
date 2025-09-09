@@ -26,8 +26,7 @@ export default function SignupForm() {
                     })
             })
             .catch(error => {
-                setError("")
-                console.log(error)
+                setError(error.message)
                 throw error
             })
     }
@@ -50,8 +49,8 @@ export default function SignupForm() {
                         Log In
                     </Link>
                 </p>
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(signup)}>
+                {error && <p className="text-red-600 mt-2 text-center">{error}</p>}
+                <form onSubmit={handleSubmit(signup)} className="my-2">
                     <div className='space-y-5'>
                         <Input
                             label="Full name"

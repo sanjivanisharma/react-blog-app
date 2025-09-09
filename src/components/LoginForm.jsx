@@ -23,8 +23,7 @@ export default function LoginForm() {
                 navigate("/")
             })
             .catch(error => {
-                setError("")
-                console.log(error.status)
+                setError(error.message)
                 throw error
             })
     }
@@ -49,8 +48,8 @@ export default function LoginForm() {
                         Sign Up
                     </Link>
                 </p>
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(login)}>
+                {error && <p className="text-red-600 mt-2 text-center">{error}</p>}
+                <form onSubmit={handleSubmit(login)} className="my-2">
                     <div className='space-y-5'>
                         <Input
                             label="Email"
