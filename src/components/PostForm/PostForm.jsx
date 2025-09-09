@@ -52,6 +52,9 @@ export default function PostForm({ post }) {
         } else {
             try {
                 setLoading(true)
+                if(data.slug.length > 20) {
+                    data.slug = data.slug.slice(0, 21)
+                }
                 data.slug = data.slug + "-" + Date.now()
                 const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
                 data.featuredImage = file ? file.$id : null
@@ -75,6 +78,7 @@ export default function PostForm({ post }) {
             return value
                 .trim()
                 .toLowerCase()
+                .replace(/[^a-zA-Z\d\s]+/g, "-")
                 .replace(/\s/g, '-')
 
         return ""
