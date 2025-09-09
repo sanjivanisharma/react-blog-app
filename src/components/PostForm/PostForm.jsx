@@ -104,10 +104,14 @@ export default function PostForm({ post }) {
                         maxLength: {
                             value: 255,
                             message: "Title must not exceed 255 characters."
+                        },
+                        minLength: {
+                            value: 5,
+                            message: "Title must be at least 5 characters long."
                         }
                     })}
                     onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
+                        !post && setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
                     }}
                 />
                 <p className="text-red-600">{errors.title?.message}</p>
@@ -156,13 +160,12 @@ export default function PostForm({ post }) {
                     className="w-full flex items-center justify-center gap-2"
                 >
                     {post ? "Update" : "Submit"}
-                    {loading &&
-                        <ClipLoader
-                            color="white"
-                            loading={loading}
-                            size={18}
-                            aria-label="Loading Spinner"
-                        />}
+                    <ClipLoader
+                        color="white"
+                        loading={loading}
+                        size={18}
+                        aria-label="Loading Spinner"
+                    />
                 </Button>
                 {error && <p className="text-red-600 mt-2 text-center">{error}</p>}
             </div>
