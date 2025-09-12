@@ -9,7 +9,7 @@ function PostCard({ $id, title, featuredImage }) {
                     <img
                         src={storageService.getFilePreview(featuredImage)}
                         alt={`Image of post ${title}`}
-                        className='rounded-xl max-h-48 object-contain'
+                        className='rounded-xl max-h-48 min-h-48 object-contain'
                     />
 
                 </div>

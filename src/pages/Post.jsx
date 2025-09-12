@@ -54,7 +54,7 @@ export default function Post() {
                         className="rounded-xl"
                     />
                 </div>
-                <div className="browser-css">
+                <div className="browser-css text-justify">
                     {parse(post.content)}
                 </div>
             </Container>
