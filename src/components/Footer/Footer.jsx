@@ -10,7 +10,7 @@ export default function Footer() {
                         <div className="flex h-full flex-col justify-between">
                             <div>
                                 <p className="text-sm text-gray-400 text-center">
-                                    &copy; Copyright 2025. All Rights Reserved.
+                                    &copy; Copyright 2025 by Sanjivani Sharma. All Rights Reserved.
                                 </p>
                             </div>
                         </div>
