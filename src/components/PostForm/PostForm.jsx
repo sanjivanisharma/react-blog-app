@@ -98,7 +98,7 @@ export default function PostForm({ post }) {
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+            <div className="w-full lg:w-2/3 px-2">
                 <Input
                     label="Title"
                     placeholder="Title"
@@ -131,7 +131,7 @@ export default function PostForm({ post }) {
                 <RTE label="Content" name="content" control={control} defaultValue={getValues("content")} />
                 <p className="text-red-600 mt-2">{errors.content?.message}</p>
             </div>
-            <div className="w-1/3 px-2">
+            <div className="w-full lg:w-1/3 px-2 mt-4 lg:mt-0">
                 <Input
                     label="Featured Image"
                     type="file"
@@ -144,7 +144,7 @@ export default function PostForm({ post }) {
                         <img
                             src={storageService.getFilePreview(post.featuredImage)}
                             alt={post.title}
-                            className="rounded-lg"
+                            className="rounded-lg w-full h-auto object-contain"
                         />
                     </div>
                 )}

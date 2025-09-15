@@ -33,7 +33,7 @@ export default function Post() {
         <div className="py-8">
             <Container>
                 <div className="w-full mb-6">
-                    <h1 className="text-3xl font-bold">{post.title}</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-center">{post.title}</h1>
                 </div>
                 {isAuthor && (
                     <div className="flex justify-end mb-4">
@@ -51,7 +51,7 @@ export default function Post() {
                     <img
                         src={storageService.getFilePreview(post.featuredImage)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl max-h-[60vh] w-full h-auto object-contain"
                     />
                 </div>
                 <div className="browser-css text-justify">
