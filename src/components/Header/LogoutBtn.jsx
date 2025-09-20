@@ -12,7 +12,7 @@ export default function LogoutBtn() {
   const logoutHandler = () => {
     authService.logout().then(() => {
       dispatch(logout())
-      dispatch(setPostsStore({documents: []}))
+      dispatch(setPostsStore({ documents: [] }))
       navigate('/login')
     })
       .catch(error => console.log(error))
@@ -20,7 +20,7 @@ export default function LogoutBtn() {
 
   return (
     <button
-      className='inline-block px-3 py-2 md:px-6 duration-200 hover:bg-gray-300 hover:text-gray-950 rounded-full cursor-pointer text-sm md:text-base'
+      className='flex items-center px-2 py-2 text-sm text-gray-600 hover:text-black transition-colors'
       onClick={logoutHandler}
     >Logout</button>
   )

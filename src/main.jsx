@@ -7,10 +7,11 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Post from './pages/Post.jsx'
-import UserPosts from './pages/userPosts.jsx'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Profile from './pages/Profile.jsx'
+import Library from './pages/Library.jsx'
 import { Error, AuthLayout } from './components/index.js'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -46,14 +47,6 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: "/user-posts",
-        element: (
-          <AuthLayout authRequired>
-            <UserPosts />
-          </AuthLayout>
-        )
-      },
-      {
         path: "/add-post",
         element: (
           <AuthLayout authRequired>
@@ -73,6 +66,22 @@ const router = createBrowserRouter([
         path: "/post/:slug",
         element: <Post />
       },
+      {
+        path: "/profile",
+        element: (
+          <AuthLayout authRequired>
+            <Profile />
+          </AuthLayout>
+        )
+      },
+      // {
+      //   path: "/library",
+      //   element: (
+      //     <AuthLayout authRequired>
+      //       <Library />
+      //     </AuthLayout>
+      //   )
+      // },
       {
         path: "*",
         element: <NotFound />

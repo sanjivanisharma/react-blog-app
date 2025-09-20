@@ -58,7 +58,7 @@ export default function PostForm({ post }) {
                 data.slug = data.slug + "-" + Date.now()
                 const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
                 data.featuredImage = file ? file.$id : null
-                const dbPost = await databaseService.createPost({ ...data, userId: userData.$id })
+                const dbPost = await databaseService.createPost({ ...data, userId: userData.$id, userName: userData.name })
                 if (dbPost) {
                     dispatch(createPostStore({ post: dbPost }))
                     navigate(`/post/${dbPost.$id}`)

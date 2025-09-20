@@ -13,5 +13,7 @@ import RTE from "./RTE";
 import PostForm from "./PostForm/PostForm";
 import Error from "./Error/Error";
 import AuthLayout from "./AuthLayout";
+import UserPosts from "./UserPosts";
+import Sidebar from "./Sidebar"
 
-export { Container, Footer, Header, LogoutBtn, Logo, PostCard, LoginForm, SignupForm, Button, Input, Select, RTE, PostForm, Error, AuthLayout }
+export { Container, Footer, Header, LogoutBtn, Logo, PostCard, LoginForm, SignupForm, Button, Input, Select, RTE, PostForm, Error, AuthLayout, UserPosts, Sidebar }

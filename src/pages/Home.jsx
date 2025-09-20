@@ -10,6 +10,7 @@ import { ClipLoader } from 'react-spinners'
 export default function Home() {
     const posts = useSelector(state => state.post.posts)
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const userData = useSelector(state => state.auth.userData)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -19,8 +20,16 @@ export default function Home() {
     }
 
     const postCardElements = posts.map((post) => (
-        <div key={post.$id} className='p-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'>
-            <PostCard {...post} />
+        <div key={post.$id} className='w-full'>
+            <PostCard {
+                ...{
+                    $id: post.$id,
+                    title: post.title,
+                    featuredImage: post.featuredImage,
+                    status: post.status,
+                    authorName: post.userName,
+                    createdAt: post.$createdAt
+                }} />
         </div>
     ))
 
@@ -49,11 +58,11 @@ export default function Home() {
         )
     }
     return (
-        <div className='w-full py-8'>
+        <div className='w-full'>
             <Container>
-                <div className='flex flex-wrap'>
+                <section className='max-w-3xl mx-auto py-6'>
                     {postCardElements}
-                </div>
+                </section>
             </Container>
         </div>
     )

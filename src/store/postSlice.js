@@ -12,7 +12,7 @@ const postSlice = createSlice({
             state.posts = action.payload.documents
         },
         createPostStore: (state, action) => {
-            state.posts.push(action.payload.post)
+            state.posts.unshift(action.payload.post)
         },
         updatePostStore: (state, action) => {
             state.posts = state.posts.map(singlePost => (

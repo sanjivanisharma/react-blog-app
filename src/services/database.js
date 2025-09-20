@@ -12,14 +12,14 @@ class DatabaseService {
         this.databases = new Databases(this.client)
     }
 
-    async createPost({ title, slug, content, featuredImage, status, userId }) {
+    async createPost({ title, slug, content, featuredImage, status, userId, userName }) {
         try {
             return await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
                 {
-                    title, content, featuredImage, status, userId
+                    title, content, featuredImage, status, userId, userName
                 }
             )
         } catch (error) {
@@ -70,7 +70,7 @@ class DatabaseService {
         }
     }
 
-    async getAllActivePosts(queries = [Query.equal("status", ["active"])]) {
+async getAllActivePosts(queries = [Query.equal("status", ["active"]), Query.orderDesc('\$createdAt')]) {
         try {
             return await this.databases.listDocuments(
                 config.appwriteDatabaseId,
